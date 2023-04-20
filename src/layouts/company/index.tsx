@@ -1,11 +1,11 @@
 import React from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-import Navbar from "components/navbar/RTL";
-import Sidebar from "components/sidebar/RTL";
-import Footer from "components/footer/Footer";
-import routes from "routes";
+import Navbar from "components/navbar";
+import Sidebar from "components/sidebar";
+import routes from "companyroutes";
 
-export default function RTL() {
+export default function Admin(props: { [x: string]: any }) {
+  const { ...rest } = props;
   const location = useLocation();
   const [open, setOpen] = React.useState(true);
   const [currentRoute, setCurrentRoute] = React.useState("Main Dashboard");
@@ -20,7 +20,7 @@ export default function RTL() {
   }, [location.pathname]);
 
   const getActiveRoute = (routes: RoutesType[]): string | boolean => {
-    let activeRoute = "RTL";
+    let activeRoute = "Main Dashboard";
     for (let i = 0; i < routes.length; i++) {
       if (
         window.location.href.indexOf(
@@ -45,7 +45,7 @@ export default function RTL() {
   };
   const getRoutes = (routes: RoutesType[]): any => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/rtl") {
+      if (prop.layout === "/company") {
         return (
           <Route path={`/${prop.path}`} element={prop.component} key={key} />
         );
@@ -55,15 +55,15 @@ export default function RTL() {
     });
   };
 
-  document.documentElement.dir = "rtl";
+  document.documentElement.dir = "ltr";
   return (
     <div className="flex h-full w-full">
-      <Sidebar open={open} onClose={() => setOpen(false)} />
+      <Sidebar open={open} onClose={() => setOpen(false)} company={true}/>
       {/* Navbar & Main Content */}
       <div className="h-full w-full bg-lightPrimary dark:!bg-navy-900">
         {/* Main Content */}
         <main
-          className={`mx-[12px] h-full flex-none transition-all md:pe-2 xl:mr-[313px]`}
+          className={`mx-[12px] h-full flex-none transition-all md:pr-2 xl:ml-[313px]`}
         >
           {/* Routes */}
           <div className="h-full">
@@ -71,19 +71,13 @@ export default function RTL() {
               onOpenSidenav={() => setOpen(true)}
               brandText={currentRoute}
               secondary={getActiveNavbar(routes)}
+              {...rest}
             />
             <div className="pt-5s mx-auto mb-auto h-full min-h-[84vh] p-2 md:pr-2">
               <Routes>
                 {getRoutes(routes)}
 
-                <Route
-                  path="/"
-                  element={<Navigate to="/student/default" replace />}
-                />
               </Routes>
-            </div>
-            <div className="p-3">
-              <Footer />
             </div>
           </div>
         </main>

@@ -3,14 +3,15 @@
 import { HiX } from "react-icons/hi";
 import Links from "./components/Links";
 
-import SidebarCard from "components/sidebar/componentsrtl/SidebarCard";
 import routes from "routes";
+import comproutes from 'companyroutes'
 
 const Sidebar = (props: {
   open: boolean;
+  company:boolean
   onClose: React.MouseEventHandler<HTMLSpanElement>;
 }) => {
-  const { open, onClose } = props;
+  const { open, onClose, company } = props;
   return (
     <div
       className={`sm:none duration-175 linear fixed !z-50 flex min-h-full flex-col bg-white pb-10 shadow-2xl shadow-white/5 transition-all dark:!bg-navy-800 dark:text-white md:!z-50 lg:!z-50 xl:!z-0 ${
@@ -33,9 +34,17 @@ const Sidebar = (props: {
       <div className="mt-[58px] mb-7 h-px bg-gray-300 dark:bg-white/30" />
       {/* Nav item */}
 
-      <ul className="mb-auto pt-1">
-        <Links routes={routes} />
-      </ul> 
+      {
+        company?(
+        <ul className="mb-auto pt-1">
+          <Links routes={comproutes} company={true} />
+        </ul> 
+        ):(
+          <ul className="mb-auto pt-1">
+          <Links routes={routes} company={false}/>
+        </ul>
+        )
+      }
       {/* Nav item end */}
     </div>
   );

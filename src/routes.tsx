@@ -5,6 +5,7 @@ import MainDashboard from "views/student/default";
 import NFTMarketplace from "views/student/questions";
 import Profile from "views/student/profile";
 import DataTables from "views/student/tables";
+import Jobs from 'views/company/jobs'
 import RTLDefault from "views/rtl/default";
 
 // Auth Imports
@@ -49,6 +50,13 @@ const routes = [
     path: "profile",
     icon: <MdPerson className="h-6 w-6" />,
     component: <Profile />,
+  },
+  {
+    name: "Admin",
+    layout: "/student",
+    path: "route",
+    icon: <MdBackpack className="h-6 w-6" />,
+    component: <Jobs />,
   },
 ];
 export default routes;

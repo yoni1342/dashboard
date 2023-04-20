@@ -4,11 +4,11 @@ import { Link, useLocation } from "react-router-dom";
 import DashIcon from "components/icons/DashIcon";
 // chakra imports
 
-export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
+export const SidebarLinks = (props: { routes: RoutesType[],company:boolean }): JSX.Element => {
   // Chakra color mode
   let location = useLocation();
 
-  const { routes } = props;
+  const { routes,company } = props;
 
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName: string) => {
@@ -18,7 +18,7 @@ export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
   const createLinks = (routes: RoutesType[]) => {
     return routes.map((route, index) => {
       if (
-        route.layout === "/student" ||
+        company ? route.layout === "/company":route.layout === "/student"  ||
         route.layout === "/auth" ||
         route.layout === "/rtl"
       ) {
@@ -55,6 +55,9 @@ export const SidebarLinks = (props: { routes: RoutesType[] }): JSX.Element => {
           </Link>
         );
       }
+
+      
+
     });
   };
   // BRAND
